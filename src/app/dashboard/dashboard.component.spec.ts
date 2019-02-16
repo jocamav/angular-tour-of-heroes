@@ -17,19 +17,26 @@ describe('DashboardComponent', () => {
   let heroService: HeroService;
   let heroerviceStub: Partial<HeroService>;
 
+  let HEROES: Hero[] = [
+    { id: 11, name: 'Mr. Nice' },
+    { id: 12, name: 'Narco' },
+    { id: 13, name: 'Bombasto' },
+    { id: 14, name: 'Celeritas' },
+    { id: 15, name: 'Magneta' },
+    { id: 16, name: 'RubberMan' },
+    { id: 17, name: 'Dynama' },
+    { id: 18, name: 'Dr IQ' },
+    { id: 19, name: 'Magma' },
+    { id: 20, name: 'Tornado' }
+  ];
+
   beforeEach(async(() => {
-    let HEROES: Hero[] = [
-      {
-        id: 10,
-        name: 'Mr.Mock'
-      }];
+
     heroerviceStub = {
       getHeroes: function () { return of(HEROES); }
     };
 
     TestBed.configureTestingModule({
-
-
       imports: [
         RouterTestingModule
       ],
@@ -38,7 +45,7 @@ describe('DashboardComponent', () => {
     })
       .compileComponents();
     // UserService from the root injector
-    //heroService = TestBed.get(HeroService);
+    heroService = TestBed.get(HeroService);
   }));
 
   beforeEach(() => {
@@ -49,5 +56,17 @@ describe('DashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have 4 heroes (from #1 to #4)', () => {
+
+    const compiled: HTMLElement = fixture.debugElement.nativeElement;
+    let links = compiled.querySelectorAll('a');
+    expect(links.length).toBe(4);
+
+    links.forEach((currentLink, index) => {
+      expect(currentLink.textContent).toContain(HEROES[index + 1].name);
+    });
+
   });
 });

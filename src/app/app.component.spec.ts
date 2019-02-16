@@ -38,4 +38,15 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Tour of Heroes');
   });
+
+  it('should have links to Dashboard and Heroes list', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled: HTMLElement = fixture.debugElement.nativeElement;
+    let links = compiled.querySelectorAll('a');
+    expect(links.length).toBe(2);
+    expect(links[0].textContent).toBe("Dashboard");
+    expect(links[1].textContent).toBe("Heroes");
+  });
+
 });

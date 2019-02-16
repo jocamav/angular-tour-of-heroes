@@ -14,11 +14,12 @@ describe('HeroDetailComponent', () => {
 
   let heroerviceStub: Partial<HeroService>;
 
+  let hero: Hero = {
+    id: 10,
+    name: 'Mr.Mock'
+  };
+
   beforeEach(async(() => {
-    let hero: Hero = {
-      id: 10,
-      name: 'Mr.Mock'
-    };
 
     heroerviceStub = {
       getHero: function () { return of(hero); }
@@ -42,5 +43,13 @@ describe('HeroDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have one hero', () => {
+
+    const compiled: HTMLElement = fixture.debugElement.nativeElement;
+    let title = compiled.querySelector('h2');
+    expect(title.textContent).toContain(hero.name.toUpperCase());
+
   });
 });
